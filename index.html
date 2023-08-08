@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" data-theme='dark'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Ubuntu&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --global-bg-color: #fff;
+            --global-font-family: 'Ubuntu', sans-serif;
+            --global-text-color: #222;
+            --global-link-color: blue;
+            --global-link-hover: lightblue;
+            --global-theme-toggle-bg: #ccc;
+            --global-theme-toggle-content: '🌞 THEME';
+        }
+        html[data-theme='dark'] {
+            --global-bg-color: #444;
+            --global-text-color: #ddd;
+            --global-link-color: yellow;
+            --global-link-hover: lightyellow;
+            --global-font-family: 'Roboto Slab', serif;
+            --global-theme-toggle-bg: #000;
+            --global-theme-toggle-content: '🌝 THEME';
+        }
+        html {
+            background: var(--global-bg-color);
+            font-family: var(--global-font-family);
+            color: var(--global-text-color);
+            transition: all 1s;
+        }
+        a {
+            color: var(--global-link-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 1s;
+        }
+        a:hover {
+            color: var(--global-link-hover);
+        }
+        .theme-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background: var(--global-theme-toggle-bg);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .theme-toggle::after {
+            content: var(--global-theme-toggle-content);
+        }
+    </style>
+</head>
+<body>
+        <span id="theme-toggle" class="theme-toggle"></span>
+        <h1>Hello there, here something special..</h1>
+        <p>
+            Presenting light mode and dark mode with HTML, CSS and JavaScript.
+            <a href="https://codeshare.com.br" target="_blank">CodeShare</a>
+        </p>
+
+        <script>
+            function toggleTheme () {
+                const htmlTag = document.getElementsByTagName('html')[0]
+                if (htmlTag.hasAttribute('data-theme')) {
+                    htmlTag.removeAttribute('data-theme')
+                    return window.localStorage.removeItem("site-theme")
+                }
+                htmlTag.setAttribute('data-theme', 'dark')
+                window.localStorage.setItem("site-theme", "dark")
+            }
+            function applyInitialTheme () {
+                const theme = window.localStorage.getItem("site-theme")
+                if (theme !== null) {
+                    const htmlTag = document.getElementsByTagName("html")[0]
+                    htmlTag.setAttribute("data-theme", theme)
+                }
+            }
+            applyInitialTheme();
+            document    
+                .getElementById("theme-toggle")
+                .addEventListener("click", toggleTheme);
+        </script>
+</body>
+</html>
